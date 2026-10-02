@@ -1,0 +1,321 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jaswanth Kumar Ganasala</title>
+<meta name="description" content="Embedded Software Engineer — C/C++, ARM Cortex-M, AUTOSAR, ISO 26262, FreeRTOS, Embedded Linux.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: left-aligned datasheet column; a scope-screen strip carries a real CAN frame as the hero signal. */
+:root{
+  --bg:#F3F5F4; --surface:#FFFFFF; --fg:#14222B; --muted:#56656E; --line:#D6DDDD;
+  --accent:#0B7482; --accent-soft:#E0F0F1; --ch1:#B07F00; --scope:#0F1A1F; --scope-grid:#22343B; --scope-fg:#9DB3BA;
+  --ch1-scope:#E8C547; --ch2-scope:#43C4D2;
+  --display:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0C1316; --surface:#121C20; --fg:#E3EBEC; --muted:#93A5AB; --line:#24343A;
+  --accent:#4CC3CF; --accent-soft:#12303A; --ch1:#E8C547; --scope:#081013; --scope-grid:#1B2B31; --scope-fg:#8AA1A8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0C1316; --surface:#121C20; --fg:#E3EBEC; --muted:#93A5AB; --line:#24343A;
+  --accent:#4CC3CF; --accent-soft:#12303A; --ch1:#E8C547; --scope:#081013; --scope-grid:#1B2B31; --scope-fg:#8AA1A8; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:48px 64px;display:grid;gap:72px}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+.eyebrow{font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+
+/* hero */
+header{display:grid;gap:20px}
+h1{font-size:clamp(40px,7vw,68px);font-weight:700;letter-spacing:-.01em}
+.role{font:600 clamp(20px,3vw,26px)/1.2 var(--display);color:var(--accent)}
+.lede{max-width:64ch;color:var(--muted);font-size:17px;margin:0}
+.links{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:15px}
+.copy{font:500 13px var(--mono);background:var(--accent-soft);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+.facts{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:4px}
+.facts div{display:grid}
+.facts b{font:700 28px/1 var(--display);font-variant-numeric:tabular-nums}
+.facts span{font-size:13px;color:var(--muted)}
+
+/* scope */
+.scope{margin:0;background:var(--scope);border-radius:10px;padding:14px 16px 10px;color:var(--scope-fg);overflow-x:auto}
+.scope-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;font:500 12px var(--mono);margin-bottom:8px}
+.scope-head i{font-style:normal}
+.k1{color:var(--ch1-scope)}.k2{color:var(--ch2-scope)}
+.scope svg{display:block;width:100%;min-width:640px;height:auto}
+@media (prefers-reduced-motion:no-preference){
+  .trace{stroke-dasharray:var(--len);stroke-dashoffset:0;animation:draw 1.6s ease-out both}
+  @keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+}
+
+/* sections */
+section{display:grid;gap:24px}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:10px}
+h2{font-size:30px;font-weight:600}
+.job{display:grid;grid-template-columns:200px 1fr;gap:12px 32px;padding-block:8px}
+.job + .job{border-top:1px dashed var(--line);padding-top:28px}
+.when{font:500 13px/1.5 var(--mono);color:var(--muted)}
+.when strong{display:block;color:var(--fg);font:600 15px var(--body)}
+.job h3{font-size:23px;font-weight:600}
+.job .org{color:var(--muted);margin:2px 0 10px}
+ul.pts{margin:0;padding-left:18px;display:grid;gap:6px}
+ul.pts li::marker{color:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font:500 12px var(--mono);border:1px solid var(--line);border-radius:4px;padding:2px 8px;color:var(--muted)}
+
+.project{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px}
+.project h3{font-size:24px;font-weight:600;margin-bottom:6px}
+.diagram{overflow-x:auto;min-width:0}
+.diagram svg{display:block;width:100%;min-width:360px;height:auto}
+.diagram text{font:500 11px var(--mono);fill:var(--fg)}
+.diagram .sub{fill:var(--muted);font-size:10px}
+.diagram .box{fill:var(--surface);stroke:var(--line)}
+.diagram .mcu{fill:var(--accent-soft);stroke:var(--accent)}
+.diagram .wire{stroke:var(--accent);fill:none;stroke-width:1.5}
+.diagram .ah{fill:var(--accent)}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:0 36px}
+.skills div{display:grid;grid-template-columns:128px 1fr;gap:12px;padding-block:12px;border-bottom:1px solid var(--line)}
+.skills dt{font:500 12px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.skills dd{margin:0;font-size:15px}
+
+.stds{display:flex;flex-wrap:wrap;gap:10px}
+.std{display:grid;border:1px solid var(--line);border-radius:6px;padding:10px 14px;background:var(--surface);min-width:0}
+.std b{font:600 17px var(--display)}
+.std span{font-size:12.5px;color:var(--muted)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.two h3{font-size:20px;font-weight:600;margin-bottom:12px}
+.list{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.list li{display:grid;gap:2px}
+.list span{color:var(--muted);font-size:14px}
+
+footer{border-top:1px solid var(--line);padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px}
+
+@media (max-width:760px){
+  .job,.project,.two{grid-template-columns:1fr}
+  .job{gap:6px}
+  .skills div{grid-template-columns:1fr;gap:2px}
+}
+</style>
+</head><body>
+
+<main class="wrap">
+  <header>
+    <div class="eyebrow">Portfolio · Embedded Software</div>
+    <h1>Jaswanth Kumar Ganasala</h1>
+    <div class="role">Embedded Software Engineer · C / C++ · ARM Cortex-M</div>
+    <p class="lede">I build safety-critical firmware for automotive ECUs and medical devices: drivers, RTOS tasks, diagnostics and bus communication. It runs on ARM Cortex-M, bare-metal or on FreeRTOS, and on Embedded Linux targets. I work under ISO 26262, ASPICE, AUTOSAR, IEC 62304 and MISRA C, and I trace every requirement from spec to test.</p>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/ganasala-jaswanth-k" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/jaswanth-ganasala" target="_blank" rel="noopener">GitHub</a>
+      <span class="mono" id="email">kumarjganasala14@gmail.com</span>
+      <button class="copy" id="copyBtn" type="button">Copy email</button>
+    </div>
+    <div class="facts">
+      <div><b>5+</b><span>years in embedded</span></div>
+      <div><b>2</b><span>safety domains: automotive, medical</span></div>
+      <div><b>M0–M7</b><span>Cortex-M families shipped on</span></div>
+    </div>
+  </header>
+
+  <figure class="scope" aria-label="Oscilloscope capture of a CAN frame start: SOF and identifier 0x1A4">
+    <div class="scope-head">
+      <span><i class="k1">CH1 CAN_H</i> &nbsp; <i class="k2">CH2 CAN_L</i></span>
+      <span>500 kbit/s · 2 µs/bit · SOF + ID 0x1A4 + RTR/IDE/r0 + DLC 1</span>
+    </div>
+    <svg id="scopeSvg" viewBox="0 0 960 150" role="img" aria-hidden="true"></svg>
+  </figure>
+
+  <section id="experience">
+    <div class="sec-head"><h2>Experience</h2><span class="eyebrow">2019 – present</span></div>
+
+    <article class="job">
+      <div class="when"><strong>Jan 2024 – Present</strong>California</div>
+      <div>
+        <h3>Senior Embedded Software Engineer</h3>
+        <div class="org">Robert Bosch · Automotive ECUs</div>
+        <ul class="pts">
+          <li>Embedded C for automotive ECUs on ARM Cortex-M under V-model and ASPICE, with full requirement traceability in IBM DOORS.</li>
+          <li>Fault detection, DTC handling, state machines and power distribution controls built to ISO 26262 functional-safety requirements.</li>
+          <li>CAN, LIN, SPI, ADC, PWM and timer drivers plus interrupt-driven modules inside an AUTOSAR-based architecture.</li>
+          <li>UDS diagnostics and CAN validation in Vector CANoe/CANalyzer, reading bus traces to isolate timing and message-handling defects.</li>
+          <li>RTOS task design and scheduling analysis to prevent race conditions and deadline misses; review of Simulink/Embedded Coder generated code.</li>
+          <li>Python test automation for unit, integration, SIL and HIL runs in Jenkins CI, plus RAM/ROM and CPU-load optimization from map files and on-target profiling.</li>
+          <li>On-target debugging with JTAG, Lauterbach TRACE32, oscilloscopes and logic analyzers, taking each issue through root cause to closure.</li>
+        </ul>
+        <div class="tags"><span class="tag">AUTOSAR</span><span class="tag">ISO 26262</span><span class="tag">UDS</span><span class="tag">CANoe</span><span class="tag">MISRA C</span><span class="tag">Coverity</span><span class="tag">Polyspace</span><span class="tag">HIL/SIL</span></div>
+      </div>
+    </article>
+
+    <article class="job">
+      <div class="when"><strong>Jan 2019 – Aug 2021</strong>India</div>
+      <div>
+        <h3>Embedded Software Engineer</h3>
+        <div class="org">Syrma Johari MedTech · Medical devices</div>
+        <ul class="pts">
+          <li>Safety-critical Embedded C firmware for medical devices under IEC 62304 and ISO 14971, from requirement analysis to implementation.</li>
+          <li>SPI, I2C, UART, CAN and LIN drivers, validated for timing and frame integrity with JTAG, oscilloscopes and bus analyzers.</li>
+          <li>FreeRTOS and bare-metal firmware covering ISRs, timers, watchdog, DMA and low-power modes for battery-operated devices.</li>
+          <li>Board bring-up with the hardware team: sensors, displays and peripherals integrated over I2C and SPI.</li>
+          <li>Fault-injection testing (power loss, brown-out, low battery, comms loss) to verify safe-state behavior.</li>
+        </ul>
+        <div class="tags"><span class="tag">IEC 62304</span><span class="tag">FreeRTOS</span><span class="tag">Bare-metal</span><span class="tag">DMA</span><span class="tag">Low-power</span><span class="tag">Board bring-up</span></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="project">
+    <div class="sec-head"><h2>Project</h2><span class="eyebrow">STM32 · FreeRTOS · CAN</span></div>
+    <div class="project">
+      <div>
+        <h3>RTOS Multi-Sensor Data Acquisition &amp; CAN Monitor</h3>
+        <p style="margin:0 0 12px;color:var(--muted)">STM32 (Cortex-M4) · FreeRTOS · Embedded C · Python</p>
+        <ul class="pts">
+          <li>Separate FreeRTOS tasks for sampling, processing and comms, linked by queues and semaphores.</li>
+          <li>I2C and SPI drivers for temperature and IMU sensors; timer-triggered ADC sampling over DMA.</li>
+          <li>Processed data sent over CAN and UART to a Python host tool that logs, decodes and plots it live.</li>
+          <li>Watchdog supervision, error handling and low-power modes; MISRA C guidelines; Unity unit tests.</li>
+        </ul>
+      </div>
+      <div class="diagram" aria-label="Block diagram: sensors feed STM32 tasks, which send frames over CAN and UART to a Python host">
+        <svg viewBox="0 0 400 260" role="img">
+          <defs><marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0 0L8 4L0 8z"/></marker></defs>
+          <rect class="box" x="8" y="20" width="96" height="44" rx="5"/><text x="18" y="40">Temp sensor</text><text class="sub" x="18" y="55">I2C</text>
+          <rect class="box" x="8" y="80" width="96" height="44" rx="5"/><text x="18" y="100">IMU</text><text class="sub" x="18" y="115">SPI</text>
+          <rect class="box" x="8" y="140" width="96" height="44" rx="5"/><text x="18" y="160">Analog in</text><text class="sub" x="18" y="175">ADC + DMA</text>
+          <rect class="mcu" x="140" y="14" width="130" height="176" rx="6"/>
+          <text x="152" y="34">STM32 · FreeRTOS</text>
+          <text class="sub" x="152" y="62">▸ SensorTask</text>
+          <text class="sub" x="152" y="84">▸ ProcessTask</text>
+          <text class="sub" x="152" y="106">▸ CommsTask</text>
+          <text class="sub" x="152" y="128">queues · semaphores</text>
+          <text class="sub" x="152" y="150">IWDG · low-power</text>
+          <text class="sub" x="152" y="172">MISRA C · Unity</text>
+          <path class="wire" d="M104 42H138" marker-end="url(#ar)"/>
+          <path class="wire" d="M104 102H138" marker-end="url(#ar)"/>
+          <path class="wire" d="M104 162H138" marker-end="url(#ar)"/>
+          <rect class="box" x="300" y="40" width="92" height="40" rx="5"/><text x="312" y="58">CAN bus</text><text class="sub" x="312" y="72">frames</text>
+          <rect class="box" x="300" y="120" width="92" height="40" rx="5"/><text x="312" y="138">UART</text><text class="sub" x="312" y="152">telemetry</text>
+          <path class="wire" d="M270 60H298" marker-end="url(#ar)"/>
+          <path class="wire" d="M270 140H298" marker-end="url(#ar)"/>
+          <rect class="box" x="210" y="214" width="182" height="38" rx="5"/><text x="222" y="231">Python host tool</text><text class="sub" x="222" y="245">log · decode · plot</text>
+          <path class="wire" d="M346 80V100H380V212" marker-end="url(#ar)"/>
+          <path class="wire" d="M346 160V212" marker-end="url(#ar)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><h2>Technical skills</h2></div>
+    <dl class="skills">
+      <div><dt>Languages</dt><dd>C (expert), Embedded C, C++11/14, Python, Bash, MATLAB, ARM assembly</dd></div>
+      <div><dt>MCUs</dt><dd>ARM Cortex-M0/M3/M4/M7, STM32, NXP, TI, Renesas, Cortex-A (Linux)</dd></div>
+      <div><dt>Firmware</dt><dd>Drivers, ISRs/NVIC, DMA, timers, watchdog, ADC/PWM, bootloaders, flash/EEPROM, linker scripts</dd></div>
+      <div><dt>RTOS</dt><dd>FreeRTOS, Zephyr; queues, semaphores, mutexes; priority inversion and race analysis</dd></div>
+      <div><dt>Embedded Linux</dt><dd>Yocto/BitBake, U-Boot, Device Tree, kernel drivers, cross-compilation, bring-up</dd></div>
+      <div><dt>Protocols</dt><dd>CAN, CAN-FD, LIN, SPI, I2C, UART/RS-485, USB, BLE, Ethernet, TCP/IP, Modbus</dd></div>
+      <div><dt>Automotive</dt><dd>AUTOSAR Classic, UDS (ISO 14229), OBD-II, DTCs, Vector CANoe/CANalyzer</dd></div>
+      <div><dt>Multimedia</dt><dd>V4L2, MIPI CSI/DSI, LVDS, SerDes, GStreamer, FFmpeg, H.264, DRM/KMS</dd></div>
+      <div><dt>Debug &amp; lab</dt><dd>JTAG/SWD, Lauterbach TRACE32, J-Link, GDB, oscilloscope, logic &amp; CAN analyzers</dd></div>
+      <div><dt>Test &amp; quality</dt><dd>Unity, CppUTest, GoogleTest, VectorCAST, LDRA, SIL/HIL, Coverity, PC-lint, Polyspace</dd></div>
+      <div><dt>Toolchains</dt><dd>Keil, IAR, STM32CubeIDE, MCUXpresso, GCC/ARM-GCC, Make, CMake, Simulink/Embedded Coder</dd></div>
+      <div><dt>Process</dt><dd>Git, SVN, Jenkins, JIRA, IBM DOORS, Polarion, Jama, Agile, V-Model</dd></div>
+    </dl>
+  </section>
+
+  <section id="standards">
+    <div class="sec-head"><h2>Standards I work under</h2></div>
+    <div class="stds">
+      <div class="std"><b>ISO 26262</b><span>Automotive functional safety</span></div>
+      <div class="std"><b>ASPICE</b><span>Automotive process capability</span></div>
+      <div class="std"><b>AUTOSAR</b><span>ECU software architecture</span></div>
+      <div class="std"><b>IEC 62304</b><span>Medical device software</span></div>
+      <div class="std"><b>ISO 14971</b><span>Medical risk management</span></div>
+      <div class="std"><b>MISRA C/C++</b><span>Coding guidelines</span></div>
+      <div class="std"><b>DO-178B/C</b><span>Airborne software</span></div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="two">
+      <div>
+        <h3>Education</h3>
+        <ul class="list">
+          <li><strong>M.S., Computer Science</strong><span>Saint Leo University, Tampa, FL · 2022 – 2024</span></li>
+          <li><strong>B.Tech, Electronics &amp; Communication Engineering</strong><span>Geethanjali College of Engineering, Hyderabad · 2015 – 2019</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Certifications</h3>
+        <ul class="list">
+          <li><strong>Microsoft Certified: Azure AI Engineer Associate (AI-102)</strong><span>2026</span></li>
+          <li><strong>AWS Certified Developer – Associate</strong><span>2024</span></li>
+          <li><strong>Databricks Generative AI Fundamentals</strong><span>2025</span></li>
+          <li><strong>Google Cloud Generative AI Learning Path</strong><span>2026</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Open to Embedded Software, Firmware and Embedded Linux roles.</span>
+    <span class="mono">kumarjganasala14@gmail.com</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  // Build a real CAN frame start: idle (recessive), SOF, 11-bit ID 0x1A4, RTR, IDE, r0, DLC=0001, with bit stuffing.
+  var raw=[0];
+  var id=0x1A4; for(var i=10;i>=0;i--) raw.push((id>>i)&1);
+  raw.push(0,0,0); [0,0,0,1].forEach(function(b){raw.push(b)});
+  var bits=[], run=0, last=-1;
+  raw.forEach(function(b){
+    bits.push({v:b,stuff:false});
+    if(b===last){run++}else{run=1;last=b}
+    if(run===5){var s=1-b;bits.push({v:s,stuff:true});last=s;run=1}
+  });
+  var idle=3, total=idle+bits.length+2, W=960, x0=20, bw=(W-40)/total;
+  var yH={1:62,0:28}, yL={1:62,0:96}; // recessive 2.5V both; dominant CAN_H 3.5V, CAN_L 1.5V
+  var seq=[]; for(var k=0;k<idle;k++) seq.push(1);
+  bits.forEach(function(b){seq.push(b.v)}); seq.push(1,1);
+  function path(map){
+    var d='M'+x0+' '+map[seq[0]], x=x0;
+    seq.forEach(function(v,i){ if(i>0) d+=' V'+map[v]; x+=bw; d+=' H'+x.toFixed(1); });
+    return d;
+  }
+  var svg=document.getElementById('scopeSvg'), ns='http://www.w3.org/2000/svg', css=getComputedStyle(document.documentElement);
+  function el(t,a){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e}
+  var grid=css.getPropertyValue('--scope-grid').trim(), sfg=css.getPropertyValue('--scope-fg').trim();
+  for(var gx=0;gx<=10;gx++) el('line',{x1:x0+gx*(W-40)/10,x2:x0+gx*(W-40)/10,y1:10,y2:114,stroke:grid,'stroke-width':1});
+  for(var gy=0;gy<=4;gy++) el('line',{x1:x0,x2:W-20,y1:10+gy*26,y2:10+gy*26,stroke:grid,'stroke-width':1});
+  // field labels
+  var fields=[['SOF',1],['ID 0x1A4',11],['RTR·IDE·r0',3],['DLC',4]], pos=idle, rawIdx=0;
+  var starts=[]; var ri=0; bits.forEach(function(b,i){ if(!b.stuff){starts[ri]=idle+i; ri++} });
+  var fi=0; fields.forEach(function(f){
+    var a=starts[fi], z=starts[fi+f[1]-1]+1; fi+=f[1];
+    var xa=x0+a*bw, xz=x0+z*bw;
+    el('line',{x1:xa,x2:xa,y1:118,y2:128,stroke:sfg,'stroke-width':1});
+    var t=el('text',{x:(xa+xz)/2,y:142,'text-anchor':'middle',fill:sfg,'font-family':'JetBrains Mono, monospace','font-size':11}); t.textContent=f[0];
+  });
+  bits.forEach(function(b,i){ if(b.stuff){ var xs=x0+(idle+i)*bw; var t=el('text',{x:xs+bw/2,y:124,'text-anchor':'middle',fill:sfg,'font-family':'JetBrains Mono, monospace','font-size':9}); t.textContent='s'; } });
+  [['--ch1-scope',yH],['--ch2-scope',yL]].forEach(function(c){
+    var p=el('path',{d:path(c[1]),fill:'none',stroke:css.getPropertyValue(c[0]).trim(),'stroke-width':2,'stroke-linejoin':'round',class:'trace'});
+    try{p.style.setProperty('--len',Math.ceil(p.getTotalLength()))}catch(e){}
+  });
+  // copy email
+  var btn=document.getElementById('copyBtn');
+  btn.addEventListener('click',function(){
+    var txt=document.getElementById('email').textContent;
+    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('email'));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Selected — press Ctrl+C'}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){btn.textContent='Copied'},sel)}else sel();
+  });
+})();
+</script>
+</body></html>
